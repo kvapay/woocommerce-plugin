@@ -152,7 +152,7 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
                 'label' => __('Test Mode', 'kvapay'),
                 'default' => 'no',
                 'description' => __(
-                        "To test on KvaPay Test, turn Test Mode 'On'. Please note, for Test Mode you must create a separate account on dev.kvapay.com and generate API credentials there. API credentials generated on kvapay.com are 'Live' credentials and will not work for 'Test' mode",
+                        "To test on KvaPay Test, turn Test Mode 'On'. Please note, for Test Mode you must create a separate account on dev.crypay.com and generate API credentials there. API credentials generated on kvapay.com are 'Live' credentials and will not work for 'Test' mode",
                     'kvapay'
                 ),
             ),
