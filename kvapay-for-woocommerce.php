@@ -35,7 +35,7 @@ require_once 'vendor/autoload.php';
 /**
  * Currently plugin version.
  */
-define( 'KVAPAY_FOR_WOOCOMMERCE_VERSION', '1.0.0' );
+define( 'KVAPAY_FOR_WOOCOMMERCE_VERSION', '1.0.1' );
 
 /**
  * Currently plugin URL.
