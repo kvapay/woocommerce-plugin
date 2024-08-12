@@ -66,7 +66,7 @@ class Kvapay_For_Woocommerce {
 		if ( defined( 'KVAPAY_FOR_WOOCOMMERCE_VERSION' ) ) {
 			$this->version = KVAPAY_FOR_WOOCOMMERCE_VERSION;
 		} else {
-			$this->version = '1.0.2';
+			$this->version = '1.0.3';
 		}
 		$this->plugin_name = 'kvapay-for-woocommerce';
 

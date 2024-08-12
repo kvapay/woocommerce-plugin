@@ -77,22 +77,18 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
         </h3>
         <p>
             <?php
-            esc_html_e(
-                'Accept Bitcoin through the KvaPay.com',
-                'kvapay'
-            );
+            esc_html_e('Accept Bitcoin through the KvaPay.com', 'kvapay');
             ?>
             <br>
             <a href="mailto:support@kvapay.com">support@kvapay.com</a>
         </p>
 
-        <p>
-        <p>1) Account Creation: To get started, visit <a href='https://kvapay.com/signup' target='_blank'>https://kvapay.com/signup</a> and complete the registration process.</p>
+        <p>1) Account Creation: To get started, visit <a href="<?php echo esc_url('https://kvapay.com/signup'); ?>" target="_blank">https://kvapay.com/signup</a> and complete the registration process.</p>
         <p>2) Configuration: Enter your <b>API KEY</b> and <b>API SECRET</b> from your Kvapay account into the appropriate fields. Adjust any additional settings as needed.</p>
         <p>3) Adding Callback URL: Specify your callback URL to ensure proper integration and transaction processing.<b>
-        <?php
-            echo trailingslashit(get_bloginfo('wpurl')) . '?wc-api=wc_gateway_kvapay';
-            ?>
+                <?php
+                echo esc_url(trailingslashit(get_bloginfo('wpurl')) . '?wc-api=wc_gateway_kvapay');
+                ?>
             </b>
         </p>
 
@@ -229,7 +225,11 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
 
         $client = $this->init_kvapay();
 
-        $signature = isset($_SERVER['HTTP_X_SIGNATURE']) ? $_SERVER['HTTP_X_SIGNATURE'] : null;
+        $signature = null;
+
+        if ( isset( $_SERVER['HTTP_X_SIGNATURE'] ) ) {
+            $signature = sanitize_text_field( $_SERVER['HTTP_X_SIGNATURE'] );
+        }
 
         if ($signature != $client->generateSignature($request, $this->settings['api_secret'])) {
             throw new Exception('KvaPay callback signature does not valid');
