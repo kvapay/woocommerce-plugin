@@ -11,20 +11,28 @@ The installation process for our WooCommerce payment module is straightforward. 
 
 For testing purposes, it is important to generate separate API credentials on https://dev.crypay.com since the API credentials generated on https://kvapay.com will not function in the test environment. To create a set of API credentials, log in to your kvapay account. You can either complete the auto-setup wizard or access the API tab from the menu. Click on "Projects" and then click "+Add project."
 
-1. Log in to your WordPress admin panel and navigate to Plugins > Add New.
+# How to Install Kvapay WooCommerce Plugin from GitHub Releases
 
-2. In the "Search Plugins" field, type "kvapay". Once the Kvapay for WooCommerce plugin is displayed, click on "Install Now" (if prompted, enter your FTP credentials).
+## 📥 Download the Plugin
+1. Go to the [Kvapay WooCommerce Plugin Releases](https://github.com/kvapay/woocommerce-plugin/releases/) page.
+2. Find the latest version (usually at the top of the list).
+3. Download the `.zip` file (e.g., `kvapay-woocommerce.zip`).
 
-3. After the plugin is installed, click on "Activate".
+## ⚙️ Install via WordPress Admin Panel
+1. Log in to your WordPress admin panel.
+2. Navigate to **Plugins > Add New**.
+3. Click **Upload Plugin** and select the downloaded `.zip` file.
+4. Click **Install Now**, then **Activate** once the installation is complete.
 
-4. Go to WooCommerce > Settings > Payments > Method: "Kvapay – Cryptocurrencies via KvaPay" and check the "Enabled" box. Then click on "KvaPay" on the same page. If desired, you can modify the Description and Title according to your preferences.
+## 🔧 Configure the Plugin
+1. Go to **WooCommerce > Settings > Payments**.
+2. Find **Kvapay – Cryptocurrencies via KvaPay**, enable it, and click on its settings.
+3. Enter your **API credentials**.
+4. Set the **Receive Currency** parameter to your preferred payout currency.
+5. (Optional) Configure how Kvapay order statuses align with WooCommerce order statuses.
+6. If using **Test API credentials**, enable **Test Mode**.
+7. Click **Save changes**.
 
-5. Enter your API credentials on the WooCommerce configuration page.
-
-6. Set the Receive Currency parameter to the currency in which you prefer to receive payouts from kvapay. Additionally, you can configure how kvapay order statuses align with WooCommerce order statuses. If you're unsure, it is recommended to leave the default options unchanged.
-
-7. If you are using Test API credentials, enable the Test Mode.
-
-8. Finally, click on "Save changes", and you're ready to go!
+✅ Now your Kvapay payment gateway is ready to use! 🚀
 
 Now you can accept cryptocurrency payments on your WooCommerce store using kvapay as the payment gateway. If you have any further questions or need assistance, feel free to contact our support team

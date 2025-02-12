@@ -15,7 +15,7 @@
  * Plugin Name:       WooCommerce Payment Gateway - Kvapay
  * Plugin URI:        https://kvapay.com
  * Description:       Accept Bitcoin and Altcoins via KvaPay in your WooCommerce store.
- * Version:           1.0.2
+ * Version:           1.0.4
  * Author:            KvaPay
  * Author URI:        https://kvapay.com
  * License:           MIT License

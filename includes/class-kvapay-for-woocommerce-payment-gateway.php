@@ -36,6 +36,11 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
 
     public const SETTINGS_KEY = 'woocommerce_kvapay_settings';
 
+    public $api_key;
+    public $api_secret;
+    public $order_statuses;
+    public $test;
+
     /**
      * Kvapay_Payment_Gateway constructor.
      */
@@ -83,7 +88,7 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
             <a href="mailto:support@kvapay.com">support@kvapay.com</a>
         </p>
 
-        <p>1) Account Creation: To get started, visit <a href="<?php echo esc_url('https://kvapay.com/signup'); ?>" target="_blank">https://kvapay.com/signup</a> and complete the registration process.</p>
+        <p>1) Account Creation: To get started, visit <a href="<?php echo esc_url('https://app.kvapay.com/register'); ?>" target="_blank">https://app.kvapay.com/register</a> and complete the registration process.</p>
         <p>2) Configuration: Enter your <b>API KEY</b> and <b>API SECRET</b> from your Kvapay account into the appropriate fields. Adjust any additional settings as needed.</p>
         <p>3) Adding Callback URL: Specify your callback URL to ensure proper integration and transaction processing.<b>
                 <?php
