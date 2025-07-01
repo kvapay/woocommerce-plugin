@@ -40,6 +40,7 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
     public $api_secret;
     public $order_statuses;
     public $test;
+    public $email_send;
 
     /**
      * Kvapay_Payment_Gateway constructor.
@@ -62,6 +63,7 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
         $this->api_secret = $this->get_option('api_secret');
         $this->order_statuses = $this->get_option('order_statuses');
         $this->test = ('yes' === $this->get_option('test', 'no'));
+        $this->email_send = ('yes' === $this->get_option('email_send', 'no'));
 
         add_action('woocommerce_update_options_payment_gateways_kvapay', array($this, 'process_admin_options'));
         add_action('woocommerce_update_options_payment_gateways_kvapay', array($this, 'save_order_statuses'));
@@ -124,7 +126,7 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
                 'title' => __('Description', 'kvapay'),
                 'type' => 'textarea',
                 'description' => __('The payment method description which a user sees at the checkout of your store.', 'kvapay'),
-                'default' => __('Pay with BTC, LTC, ETH, USDT and other cryptocurrencies. Powered by KvaPay.', 'kvapay'),
+                'default' => __('Pay with BTC, LTC, ETH, USDC and other cryptocurrencies. Powered by KvaPay.', 'kvapay'),
             ),
             'title' => array(
                 'title' => __('Title', 'kvapay'),
@@ -146,6 +148,16 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
             ),
             'order_statuses' => array(
                 'type' => 'order_statuses',
+            ),
+            'email_send' => array(
+                'title' => __('Disable Emails', 'kvapay'),
+                'type' => 'checkbox',
+                'label' => __('Disable Customer Emails', 'kvapay'),
+                'default' => 'no',
+                'description' => __(
+                    "Enable this option if you don't want to send the customer's email to KvaPay.",
+                    'kvapay'
+                ),
             ),
             'test' => array(
                 'title' => __('Test', 'kvapay'),
@@ -197,12 +209,16 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
             'amount' => (float)$order->get_total(),
             'symbol' => $order->get_currency(),
             'currency' => $order->get_currency(),
-            'failUrl' => $this->get_fail_order_url($order),
-            'successUrl' => add_query_arg('order-received', $order->get_id(), add_query_arg('key', $order->get_order_key(), $this->get_return_url($order))),
+            'failUrl' => str_replace('http', 'https',$this->get_fail_order_url($order)),
+            'successUrl' => str_replace('http', 'https',add_query_arg('order-received', $order->get_id(), add_query_arg('key', $order->get_order_key(), $this->get_return_url($order)))),
             'timestamp' => time(),
             'email' => $order->get_billing_email(),
             'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
         ];
+
+        if (!$this->email_send) {
+            unset($params['email']);
+        }
 
         $response = array('result' => 'fail');
 
