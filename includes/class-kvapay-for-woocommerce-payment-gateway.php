@@ -150,9 +150,9 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
                 'type' => 'order_statuses',
             ),
             'email_send' => array(
-                'title' => __('Disable Emails', 'kvapay'),
+                'title' => __('Disable Email', 'kvapay'),
                 'type' => 'checkbox',
-                'label' => __('Disable Customer Emails', 'kvapay'),
+                'label' => __('Disable Customer Email', 'kvapay'),
                 'default' => 'no',
                 'description' => __(
                     "Enable this option if you don't want to send the customer's email to KvaPay.",
@@ -209,8 +209,8 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
             'amount' => (float)$order->get_total(),
             'symbol' => $order->get_currency(),
             'currency' => $order->get_currency(),
-            'failUrl' => str_replace('http', 'https',$this->get_fail_order_url($order)),
-            'successUrl' => str_replace('http', 'https',add_query_arg('order-received', $order->get_id(), add_query_arg('key', $order->get_order_key(), $this->get_return_url($order)))),
+            'failUrl' => $this->get_fail_order_url($order),
+            'successUrl' => add_query_arg('order-received', $order->get_id(), add_query_arg('key', $order->get_order_key(), $this->get_return_url($order))),
             'timestamp' => time(),
             'email' => $order->get_billing_email(),
             'name' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
@@ -251,7 +251,6 @@ class Kvapay_For_Woocommerce_Payment_Gateway extends WC_Payment_Gateway
         if ( isset( $_SERVER['HTTP_X_SIGNATURE'] ) ) {
             $signature = sanitize_text_field( $_SERVER['HTTP_X_SIGNATURE'] );
         }
-
         if ($signature != $client->generateSignature($request, $this->settings['api_secret'])) {
             throw new Exception('KvaPay callback signature does not valid');
         }
